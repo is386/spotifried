@@ -1,1 +1,1 @@
-# SpotifyPlaylists
+# Spotifried
