@@ -16,6 +16,8 @@ Create a file named `env.json` in the `root` directory. Add the following code t
   "host": "localhost",
   "database": "user_login",
   "password": "POSTGRES_PASSWORD_HERE",
+  "client_id": "CLIENT_ID_HERE",
+  "client_secret": "CLIENT_SECRET_HERE",
   "port": 5432
 }
 ```
