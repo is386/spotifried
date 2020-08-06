@@ -6,6 +6,7 @@ import Login from "./Login";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 class App extends React.Component {
+  // Add your routes here. Be sure to add them to ./components/Nav as well
   render() {
     return (
       <Router>
