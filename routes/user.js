@@ -26,13 +26,13 @@ pool.connect().then(function () {
 function validUserBody(body) {
   if (
     body.hasOwnProperty("username") &&
-    body.hasOwnProperty("plaintextPassword") &&
+    body.hasOwnProperty("password") &&
     typeof body.username == "string" &&
-    typeof body.plaintextPassword == "string" &&
+    typeof body.password == "string" &&
     body.username.length >= userMin &&
     body.username.length <= userMax &&
-    body.plaintextPassword.length >= passMin &&
-    body.plaintextPassword.length <= passMax
+    body.password.length >= passMin &&
+    body.password.length <= passMax
   ) {
     return true;
   }
@@ -58,14 +58,14 @@ router.post("/user", function (req, res) {
   }
 
   let username = req.body.username;
-  let plaintextPassword = req.body.plaintextPassword;
+  let password = req.body.password;
 
   pool.query(selectUserQuery, [username]).then(function (response) {
     if (response.rows.length !== 0) {
       return res.status(401).send(); // user already exists
     }
     bcrypt
-      .hash(plaintextPassword, saltRounds)
+      .hash(password, saltRounds)
       .then(function (hashedPassword) {
         let success = insertUser(username, hashedPassword);
         if (success) {
@@ -86,7 +86,7 @@ router.post("/user", function (req, res) {
 // Returns status 200 if the user is authenticated.
 router.post("/auth", function (req, res) {
   let username = req.body.username;
-  let plaintextPassword = req.body.plaintextPassword;
+  let password = req.body.password;
 
   pool
     .query(selectUserQuery, [username])
@@ -96,7 +96,7 @@ router.post("/auth", function (req, res) {
       }
       let hashedPassword = response.rows[0].hashed_password;
       bcrypt
-        .compare(plaintextPassword, hashedPassword)
+        .compare(password, hashedPassword)
         .then(function (isSame) {
           if (isSame) {
             res.status(200).send(); // password matches
