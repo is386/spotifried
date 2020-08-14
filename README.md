@@ -1,5 +1,9 @@
 # Spotifried
 
+## About Spotifried
+
+This website does two things. It shows a user's top 10 songs on Spotify, and it lets users search the top 10 songs of other users on the Spotifried website.
+
 ## Install Node Modules
 
 Run `npm install` in both the `root` and `client` directories.
