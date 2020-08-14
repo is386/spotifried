@@ -52,10 +52,6 @@ class Login extends React.Component {
     return (
       <div>
         <h1>Login</h1>
-        <p>
-          Usernames must be between 1 and 20 characters long. <br />
-          Passwords must be between 5 and 36 characters long.
-        </p>
         {/* This div will contain whatever the error variable contains */}
         <div className="error-div">
           <p>{this.state.error}</p>
