@@ -18,6 +18,7 @@ Create a file named `env.json` in the `root` directory. Add the following code t
   "password": "POSTGRES_PASSWORD_HERE",
   "client_id": "CLIENT_ID_HERE",
   "client_secret": "CLIENT_SECRET_HERE",
+  "redirect_uri": "http://localhost:5000/callback",
   "port": 5432
 }
 ```
@@ -29,6 +30,14 @@ CREATE DATABASE user_login;
 \c user_login;
 CREATE TABLE users (
     username VARCHAR(20),
-    hashed_password CHAR(60)
+    hashed_password CHAR(60),
+    top10 json,
+    top10_date DATE NOT NULL DEFAULT CURRENT_DATE
 );
 ```
+
+## Run the Server and Website
+
+Navigate to the `root` directory, then run the command `node server.js`.
+
+Then navigate to the `client` directory, then run the command `npm start`.
