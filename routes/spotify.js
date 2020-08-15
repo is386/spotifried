@@ -7,7 +7,6 @@ let env = require("../env.json");
 let client_id = env.client_id;
 let client_secret = env.client_secret;
 let redirect_uri = env.redirect_uri;
-let bearer = "";
 
 let stateKey = "spotify_auth_state";
 
@@ -30,7 +29,7 @@ let generateRandomString = function (length) {
   return text;
 };
 
-router.get("/login", function (req, res) {
+router.get("/spotify_login", function (req, res) {
   let state = generateRandomString(16);
   res.cookie(stateKey, state);
 
@@ -56,7 +55,7 @@ router.get("/callback", function (req, res) {
   let state = req.query.state || null;
   let storedState = req.cookies ? req.cookies[stateKey] : null;
 
-  if (state === null || state !== storedState) {
+  if (state === null) {
     res.redirect(
       "/" +
         querystring.stringify({
@@ -79,35 +78,31 @@ router.get("/callback", function (req, res) {
     };
     request.post(authOptions, function (error, response, body) {
       if (!error && response.statusCode === 200) {
-        bearer = "Bearer " + body.access_token;
+        res.redirect(
+          "http://localhost:3000/top10#" +
+            querystring.stringify({
+              access_token: body.access_token,
+              refresh_token: body.refresh_token,
+            })
+        );
+      } else {
       }
     });
-    res.redirect("http://localhost:5000/top10.html");
   }
 });
 
-// Returns status 401 if the user is not logged into spotify
-// Returns status 200 if the user is logged into spotify and it sends the top 10.
-router.get("/top_10", function (req, res) {
-  function callback(error, response, body) {
-    // if logged in, 200, else 401
-    if (!error && response.statusCode == 200) {
-      res.status(response.statusCode).send({ body: body });
-    } else {
-      res.status(response.statusCode).send();
-    }
-  }
-
-  let headers = {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-    Authorization: bearer,
+router.get("/refresh_token", function (req, res) {
+  // requesting access token from refresh token
+  var refresh_token = req.query.refresh_token;
+  var authOptions = {
+    url: "https://accounts.spotify.com/api/token",
+    headers: {
+      Authorization: "Basic " + new Buffer(clientId + ":" + clientSecret).toString("base64"),
+    },
+    form: {
+      grant_type: "refresh_token",
+      refresh_token: refresh_token,
+    },
+    json: true,
   };
-
-  let options = {
-    url: "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=10&offset=0",
-    headers: headers,
-  };
-
-  request(options, callback);
 });
