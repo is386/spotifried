@@ -1,5 +1,6 @@
 import React from "react";
 import Spotify from "spotify-web-api-js";
+import SongTable from "./components/SongTable";
 import "./App.css";
 
 const spotify = new Spotify();
@@ -22,7 +23,6 @@ class Top10 extends React.Component {
     this.getHashParams = this.getHashParams.bind(this);
     this.getTopTen = this.getTopTen.bind(this);
     this.parseSongs = this.parseSongs.bind(this);
-    this.generateTable = this.generateTable.bind(this);
   }
 
   getHashParams() {
@@ -73,26 +73,6 @@ class Top10 extends React.Component {
     this.setState({ songs: songs });
   }
 
-  generateTable() {
-    return this.state.songs.map((song) => {
-      const { id, name, album, artists, art, song_url, album_url } = song;
-      return (
-        <tr key={id}>
-          <td>
-            <img src={art} alt="album art" width="100" height="100" />
-          </td>
-          <td>
-            <a href={song_url}>{name}</a>
-          </td>
-          <td>
-            <a href={album_url}>{album}</a>
-          </td>
-          <td>{artists.join(", ")}</td>
-        </tr>
-      );
-    });
-  }
-
   render() {
     let spotifyConnect = null;
     if (!this.state.loggedIn) {
@@ -109,17 +89,7 @@ class Top10 extends React.Component {
           Get Top 10 Tracks
         </button>
         <br />
-        <table id="top-ten-songs">
-          <thead>
-            <tr>
-              <th>Cover Art</th>
-              <th>Track</th>
-              <th>Album</th>
-              <th>Artist(s)</th>
-            </tr>
-          </thead>
-          <tbody>{this.generateTable()}</tbody>
-        </table>
+        <SongTable songs={this.state.songs}></SongTable>
       </div>
     );
   }
