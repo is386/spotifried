@@ -3,6 +3,7 @@ import "./App.css";
 import Nav from "./components/Nav";
 import Create from "./Create";
 import Login from "./Login";
+import Top10 from "./Top10";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 class App extends React.Component {
@@ -16,6 +17,7 @@ class App extends React.Component {
           <Switch>
             <Route path="/" exact component={Login} />
             <Route path="/create" component={Create} />
+            <Route path="/top10" component={Top10} />
           </Switch>
         </div>
       </Router>
