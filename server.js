@@ -7,8 +7,6 @@ app.use(express.json());
 const port = 5000;
 const hostname = "localhost";
 
-app.use(express.static("public_html")).use(cors()).use(cookieParser());
-
 const userRouter = require("./routes/user.js");
 app.use(userRouter);
 
