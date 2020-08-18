@@ -14,6 +14,9 @@ app.use(spotifyRouter);
 const top10Router = require("./routes/top10.js");
 app.use(top10Router);
 
+const searchRouter = require("./routes/search.js");
+app.use(searchRouter);
+
 app.listen(port, hostname, () => {
   console.log(`Listening at: http://${hostname}:${port}`);
 });

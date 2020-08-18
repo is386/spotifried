@@ -22,6 +22,10 @@ class Nav extends React.Component {
           <Link style={navStyle} to="/top10">
             <li>Top 10</li>
           </Link>
+
+          <Link style={navStyle} to="/search">
+            <li>Search</li>
+          </Link>
         </ul>
       </nav>
     );
