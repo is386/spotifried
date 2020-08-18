@@ -1,5 +1,7 @@
 import React from "react";
 import "./App.css";
+import auth from "./components/Auth";
+import Nav from "./components/Nav";
 
 class Login extends React.Component {
   constructor(props) {
@@ -37,6 +39,9 @@ class Login extends React.Component {
       .then((response) => {
         if (response.status === 200) {
           this.setState({ error: "Successfully Logged In!" });
+          auth.login(() => {
+            this.props.history.push("/top10");
+          });
         } else if (response.status === 401) {
           this.setState({ error: "Invalid Username or Password." });
         } else {
@@ -51,6 +56,7 @@ class Login extends React.Component {
   render() {
     return (
       <div>
+        <Nav />
         <h1>Login</h1>
         {/* This div will contain whatever the error variable contains */}
         <div className="error-div">
@@ -71,12 +77,7 @@ class Login extends React.Component {
           <label>
             Password:
             {/* The value of the input field will change as its being typed into*/}
-            <input
-              name="password"
-              type="password"
-              value={this.state.password}
-              onChange={this.handleInputChange}
-            ></input>
+            <input name="password" type="password" onChange={this.handleInputChange}></input>
           </label>
           <br />
           <input type="submit" value="Submit"></input>
