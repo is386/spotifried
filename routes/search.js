@@ -17,18 +17,13 @@ const selectUserQuery = "SELECT top10 FROM users WHERE username = $1";
 router.get("/search", function(req, res) {
     let username = req.query.username;
 
-    /*
-    const query = {
-        name: "fetch"
-    }
-    */
    pool
     .query(selectUserQuery, [username])
     .then(function (response) {
         if (response.rows.length === 0) {
             return res.status(401).send();
         }
-        //console.log(response.rows);
-        return res.status(200).send(response.rows);
+        console.log(response.rows);
+        return res.status(200).send({ songs: response.rows });
     })
 })
