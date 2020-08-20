@@ -1,5 +1,7 @@
 import React from "react";
 import SongTable from "./components/SongTable";
+import auth from "./components/Auth";
+import Nav from "./components/Nav";
 import "./App.css";
 
 class Top10 extends React.Component {
@@ -63,12 +65,16 @@ class Top10 extends React.Component {
   }
 
   render() {
+    if (!auth.isLoggedIn()) {
+      this.props.history.push("/login");
+    }
     let spotifyConnect = null;
     if (!this.state.loggedIn) {
       spotifyConnect = <a href="http://localhost:5000/spotify_login">Connect to Spotify</a>;
     }
     return (
       <div>
+        <Nav />
         <h1>Your Top 10</h1>
         <div id="error">{this.state.error}</div>
         <br />
