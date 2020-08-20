@@ -1,6 +1,7 @@
 const express = require("express");
 const pg = require("pg");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const router = express.Router();
 router.use(express.json());
 
@@ -18,9 +19,7 @@ const insertUserQuery = "INSERT INTO users (username, hashed_password) VALUES ($
 const env = require("../env.json");
 const Pool = pg.Pool;
 const pool = new Pool(env);
-pool.connect().then(function () {
-  console.log(`Connected to database ${env.database}`);
-});
+pool.connect();
 
 // Returns true if the request body for a user is valid, false otherwise.
 function validUserBody(body) {
@@ -87,6 +86,7 @@ router.post("/user", function (req, res) {
 router.post("/auth", function (req, res) {
   let username = req.body.username;
   let password = req.body.password;
+  let accessToken = jwt.sign(username, env.access_token_secret);
 
   pool
     .query(selectUserQuery, [username])
@@ -99,7 +99,7 @@ router.post("/auth", function (req, res) {
         .compare(password, hashedPassword)
         .then(function (isSame) {
           if (isSame) {
-            res.status(200).send(); // password matches
+            res.status(200).send({ accessToken: accessToken }); // password matches
           } else {
             res.status(401).send(); // password does not match
           }
@@ -113,4 +113,26 @@ router.post("/auth", function (req, res) {
       console.log(error);
       res.status(500).send();
     });
+});
+
+router.get("/authToken", (req, res) => {
+  let authHeader = req.headers["authorization"];
+  let token = authHeader && authHeader.split(" ")[1];
+
+  if (token == null) {
+    res.status(401).send();
+  }
+
+  jwt.verify(token, env.access_token_secret, (err, username) => {
+    if (err) {
+      res.status(403).send();
+    }
+    pool.query(selectUserQuery, [username]).then(function (response) {
+      if (response.rows.length === 0) {
+        return res.status(401).send(); // user does not exist
+      } else {
+        return res.status(200).send();
+      }
+    });
+  });
 });

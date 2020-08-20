@@ -10,9 +10,7 @@ module.exports = router;
 const env = require("../env.json");
 const Pool = pg.Pool;
 const pool = new Pool(env);
-pool.connect().then(function () {
-  console.log(`Connected to database ${env.database}`);
-});
+pool.connect();
 
 const songLimit = 10;
 const updateSongsQuery = "UPDATE users SET top10 = $1 WHERE username = $2"; // how to get username?
@@ -43,12 +41,11 @@ function parseSongs(songData) {
 // Updates current user data with current top ten songs
 // Returns true if successful, false otherwise
 function pushTopTen(songs) {
-  pool
-    .query(updateSongsQuery, [songs, "placeholder_username"]).catch(function (error) {
-      console.log(error);
-      return false;
-    });
-    return true;
+  pool.query(updateSongsQuery, [songs, "placeholder_username"]).catch(function (error) {
+    console.log(error);
+    return false;
+  });
+  return true;
 }
 
 // Returns status 401 if the token is invalid.
