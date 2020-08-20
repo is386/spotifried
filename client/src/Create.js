@@ -1,4 +1,5 @@
 import React from "react";
+import Nav from "./components/Nav";
 import "./App.css";
 
 class Create extends React.Component {
@@ -37,6 +38,7 @@ class Create extends React.Component {
       .then((response) => {
         if (response.status === 200) {
           this.setState({ error: "Account Created Successfully!" });
+          this.props.history.push("/login");
         } else if (response.status === 401) {
           this.setState({ error: "Invalid Username or Password." });
         } else {
@@ -51,6 +53,7 @@ class Create extends React.Component {
   render() {
     return (
       <div>
+        <Nav />
         <h1>Create Account</h1>
         <p>
           Usernames must be between 1 and 20 characters long. <br />
@@ -75,12 +78,7 @@ class Create extends React.Component {
           <label>
             Password:
             {/* The value of the input field will change as its being typed into*/}
-            <input
-              name="password"
-              type="password"
-              value={this.state.password}
-              onChange={this.handleInputChange}
-            ></input>
+            <input name="password" type="password" onChange={this.handleInputChange}></input>
           </label>
           <br />
           <input type="submit" value="Submit"></input>
