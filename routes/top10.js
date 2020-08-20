@@ -7,7 +7,15 @@ const router = express.Router();
 router.use(express.json());
 module.exports = router;
 
+const env = require("../env.json");
+const Pool = pg.Pool;
+const pool = new Pool(env);
+pool.connect().then(function () {
+  console.log(`Connected to database ${env.database}`);
+});
+
 const songLimit = 10;
+const updateSongsQuery = "UPDATE users SET top10 = $1 WHERE username = $2"; // how to get username?
 
 // Parses the songs from spotify's top track response
 function parseSongs(songData) {
@@ -32,6 +40,17 @@ function parseSongs(songData) {
   return songs;
 }
 
+// Updates current user data with current top ten songs
+// Returns true if successful, false otherwise
+function pushTopTen(songs) {
+  pool
+    .query(updateSongsQuery, [songs, "placeholder_username"]).catch(function (error) {
+      console.log(error);
+      return false;
+    });
+    return true;
+}
+
 // Returns status 401 if the token is invalid.
 // Returns status 500 for any other error
 // Returns status 200 if all goes well.
@@ -45,6 +64,7 @@ router.post("/top_10", function (req, res) {
     .getMyTopTracks({ limit: songLimit })
     .then((response) => {
       let songs = parseSongs(response.body.items);
+      pushTopTen(JSON.stringify(songs));
       return res.status(200).send({ songs: songs });
     })
     .catch((error) => {
