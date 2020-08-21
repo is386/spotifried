@@ -50,6 +50,7 @@ class Login extends React.Component {
           this.setState({ error: "Successfully Logged In!" });
           response.json().then((data) => {
             localStorage.setItem("token", data.token);
+            localStorage.setItem("name", this.state.username);
             auth.login();
             this.props.history.push("/top10");
           });
