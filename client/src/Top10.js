@@ -1,6 +1,5 @@
 import React from "react";
 import SongTable from "./components/SongTable";
-import "./App.css";
 import auth from "./components/Auth";
 import NavBar from "./components/NavBar";
 
@@ -25,7 +24,7 @@ class Top10 extends React.Component {
     await auth.authenticate(localStorage.getItem("token"));
     this.setState({ loggedIn: auth.authenticated });
     if (!this.state.loggedIn) {
-      this.props.history.push("/");
+      this.props.history.push("/login");
     }
   }
 

@@ -48,7 +48,7 @@ class Create extends React.Component {
       .then((response) => {
         if (response.status === 200) {
           this.setState({ error: "Account Created Successfully!" });
-          this.props.history.push("/");
+          this.props.history.push("/login");
         } else if (response.status === 401) {
           this.setState({ error: "Invalid Username or Password." });
         } else {

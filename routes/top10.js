@@ -88,12 +88,3 @@ router.post("/top_10", function (req, res) {
       return res.status(500).send();
     });
 });
-
-// pool
-// .query(selectSongsQuery, ["Indervir15"])
-// .then(function (response) {
-//   console.log(response.rows[0]);
-// })
-// .catch(function (error) {
-//   console.log(error);
-// });
