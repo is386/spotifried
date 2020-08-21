@@ -2,7 +2,7 @@ import React from "react";
 import SongTable from "./components/SongTable";
 import "./App.css";
 import auth from "./components/Auth";
-import Nav from "./components/Nav";
+import NavBar from "./components/NavBar";
 
 class Top10 extends React.Component {
   constructor(props) {
@@ -83,7 +83,7 @@ class Top10 extends React.Component {
 
     return (
       <div>
-        <Nav loggedIn={auth.authenticated} />
+        <NavBar loggedIn={auth.authenticated} />
 
         <h1>Your Top 10</h1>
         <div id="error">{this.state.error}</div>

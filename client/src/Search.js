@@ -2,7 +2,7 @@ import React from "react";
 import SongTable from "./components/SongTable";
 import "./App.css";
 import auth from "./components/Auth";
-import Nav from "./components/Nav";
+import NavBar from "./components/NavBar";
 
 class Search extends React.Component {
   constructor(props) {
@@ -56,7 +56,7 @@ class Search extends React.Component {
   render() {
     return (
       <div>
-        <Nav loggedIn={auth.authenticated} />
+        <NavBar loggedIn={auth.authenticated} />
         <h1>Search</h1>
         <p>Type in a username to see their top ten songs.</p>
         <form onSubmit={this.handleSubmit}>
