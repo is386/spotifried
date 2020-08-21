@@ -68,17 +68,3 @@ router.post("/top_10", function (req, res) {
       return res.status(500).send();
     });
 });
-
-// a post request handler that takes in a top 10 songs object and saves the json to the database
-// heres what our top 10 songs object looks like, just make sure to check the fields
-// {
-// id: 0,
-// name: Cool Song,
-// album: Cool Album,
-// artists: [Cool Dude],
-// art: image.png,
-// song_url: spotify.com/song,
-// album_url: spotify.com/album
-// }
-
-// we also need another post request that takes a user name and returns the json top ten object
