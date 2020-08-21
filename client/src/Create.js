@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import auth from "./components/Auth";
-import Nav from "./components/Nav";
+import NavBar from "./components/NavBar";
 
 class Create extends React.Component {
   constructor(props) {
@@ -63,7 +63,7 @@ class Create extends React.Component {
   render() {
     return (
       <div>
-        <Nav loggedIn={auth.authenticated} />
+        <NavBar loggedIn={auth.authenticated} />
         <h1>Create Account</h1>
         <p>
           Usernames must be between 1 and 20 characters long. <br />

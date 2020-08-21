@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import auth from "./components/Auth";
-import Nav from "./components/Nav";
+import NavBar from "./components/NavBar";
 
 class Login extends React.Component {
   constructor(props) {
@@ -67,7 +67,7 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-        <Nav loggedIn={auth.authenticated} />
+        <NavBar loggedIn={auth.authenticated} />
         <h1>Login</h1>
         {/* This div will contain whatever the error variable contains */}
         <div className="error-div">
