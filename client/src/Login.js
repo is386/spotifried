@@ -8,11 +8,20 @@ class Login extends React.Component {
     super(props);
 
     // This will be updated by the input fields and submit button.
-    this.state = { username: "", password: "", error: "" };
+    this.state = { username: "", password: "", error: "", loggedIn: false };
 
     // Binds the methods to this object.
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  // This checks if the login token exists. If so, it redirects to the top 10 page.
+  async componentDidMount() {
+    await auth.authenticate(localStorage.getItem("token"));
+    this.setState({ loggedIn: auth.authenticated });
+    if (this.state.loggedIn) {
+      this.props.history.push("/top10");
+    }
   }
 
   // Updates the username and password variables
@@ -39,7 +48,9 @@ class Login extends React.Component {
       .then((response) => {
         if (response.status === 200) {
           this.setState({ error: "Successfully Logged In!" });
-          auth.login(() => {
+          response.json().then((data) => {
+            localStorage.setItem("token", data.token);
+            auth.login();
             this.props.history.push("/top10");
           });
         } else if (response.status === 401) {
@@ -56,7 +67,7 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-        <Nav />
+        <Nav loggedIn={auth.authenticated} />
         <h1>Login</h1>
         {/* This div will contain whatever the error variable contains */}
         <div className="error-div">

@@ -99,7 +99,7 @@ router.post("/auth", function (req, res) {
         .compare(password, hashedPassword)
         .then(function (isSame) {
           if (isSame) {
-            res.status(200).send({ accessToken: accessToken }); // password matches
+            res.status(200).send({ token: accessToken });
           } else {
             res.status(401).send(); // password does not match
           }
