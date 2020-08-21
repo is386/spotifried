@@ -1,21 +1,32 @@
 class Auth {
   constructor() {
-    this.loggedIn = false;
+    this.authenticated = false;
   }
 
-  login(callback) {
-    this.loggedIn = true;
-    callback();
+  // Checks if the JWT token is valid on the backend. If valid, sets loggedIn to true
+  async authenticate(token) {
+    await fetch("/authToken", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          this.authenticated = true;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
-  logout(callback) {
-    this.username = "";
-    this.loggedIn = false;
-    callback();
+  login() {
+    this.authenticated = true;
   }
 
-  isLoggedIn() {
-    return this.loggedIn;
+  logout() {
+    this.authenticated = false;
   }
 }
 

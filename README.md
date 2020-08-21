@@ -23,6 +23,7 @@ Create a file named `env.json` in the `root` directory. Add the following code t
   "client_id": "CLIENT_ID_HERE",
   "client_secret": "CLIENT_SECRET_HERE",
   "redirect_uri": "http://localhost:5000/callback",
+  "access_token_secret": "ACCESS_TOKEN_SECRET HERE", // created using Node's "crypto" library.
   "port": 5432
 }
 ```

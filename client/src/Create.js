@@ -1,17 +1,27 @@
 import React from "react";
-import Nav from "./components/Nav";
 import "./App.css";
+import auth from "./components/Auth";
+import Nav from "./components/Nav";
 
 class Create extends React.Component {
   constructor(props) {
     super(props);
 
     // This will be updated by the input fields and submit button.
-    this.state = { username: "", password: "", error: "" };
+    this.state = { username: "", password: "", error: "", loggedIn: false };
 
     // Binds the methods to this object.
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  // This checks if the login token exists. If so, it redirects to the top 10 page.
+  async componentDidMount() {
+    await auth.authenticate(localStorage.getItem("token"));
+    this.setState({ loggedIn: auth.authenticated });
+    if (this.state.loggedIn) {
+      this.props.history.push("/top10");
+    }
   }
 
   // Updates the username and password variables
@@ -38,7 +48,7 @@ class Create extends React.Component {
       .then((response) => {
         if (response.status === 200) {
           this.setState({ error: "Account Created Successfully!" });
-          this.props.history.push("/login");
+          this.props.history.push("/");
         } else if (response.status === 401) {
           this.setState({ error: "Invalid Username or Password." });
         } else {
@@ -53,7 +63,7 @@ class Create extends React.Component {
   render() {
     return (
       <div>
-        <Nav />
+        <Nav loggedIn={auth.authenticated} />
         <h1>Create Account</h1>
         <p>
           Usernames must be between 1 and 20 characters long. <br />

@@ -1,8 +1,8 @@
 import React from "react";
 import SongTable from "./components/SongTable";
+import "./App.css";
 import auth from "./components/Auth";
 import Nav from "./components/Nav";
-import "./App.css";
 
 class Top10 extends React.Component {
   constructor(props) {
@@ -12,11 +12,21 @@ class Top10 extends React.Component {
 
     this.state = {
       token: params.access_token ? params.access_token : null,
-      loggedIn: params.access_token ? true : false,
+      connected: params.access_token ? true : false,
+      loggedIn: false,
       songs: [],
     };
 
     this.handleGetTopTen = this.handleGetTopTen.bind(this);
+  }
+
+  // This checks if the login token exists. If not, it redirects to the login.
+  async componentDidMount() {
+    await auth.authenticate(localStorage.getItem("token"));
+    this.setState({ loggedIn: auth.authenticated });
+    if (!this.state.loggedIn) {
+      this.props.history.push("/");
+    }
   }
 
   // Hashes the access token
@@ -35,7 +45,7 @@ class Top10 extends React.Component {
 
   // Gets the top ten songs from our backend
   handleGetTopTen() {
-    if (!this.state.loggedIn) {
+    if (!this.state.connected) {
       this.setState({ error: "Spotify not connected." });
       return;
     }
@@ -64,17 +74,17 @@ class Top10 extends React.Component {
       });
   }
 
+  // This page should only be accessed by people who are logged in
   render() {
-    if (!auth.isLoggedIn()) {
-      this.props.history.push("/login");
-    }
     let spotifyConnect = null;
-    if (!this.state.loggedIn) {
+    if (!this.state.connected) {
       spotifyConnect = <a href="http://localhost:5000/spotify_login">Connect to Spotify</a>;
     }
+
     return (
       <div>
-        <Nav />
+        <Nav loggedIn={auth.authenticated} />
+
         <h1>Your Top 10</h1>
         <div id="error">{this.state.error}</div>
         <br />
