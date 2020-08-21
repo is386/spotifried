@@ -49,7 +49,7 @@ class Top10 extends React.Component {
       this.setState({ error: "Spotify not connected." });
       return;
     }
-    let data = { token: this.state.token };
+    let data = { spotify_token: this.state.token, auth_token: localStorage.getItem("token") };
     fetch("/top_10", {
       method: "POST",
       headers: {

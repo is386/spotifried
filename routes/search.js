@@ -19,7 +19,7 @@ router.get("/search", function (req, res) {
     if (response.rows.length === 0) {
       return res.status(401).send();
     }
-    console.log(response.rows);
-    return res.status(200).send({ songs: response.rows });
+
+    return res.status(200).send({ songs: response.rows[0].top10 });
   });
 });

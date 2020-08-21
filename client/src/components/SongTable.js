@@ -11,6 +11,7 @@ class SongTable extends React.Component {
   generateTable() {
     return this.props.songs.map((song) => {
       const { id, name, album, artists, art, song_url, album_url } = song;
+      console.log(song);
       return (
         <tr key={id}>
           <td>

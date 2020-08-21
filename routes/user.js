@@ -115,6 +115,9 @@ router.post("/auth", function (req, res) {
     });
 });
 
+// Returns status 401 if the token is null or user doesn't exist
+// Returns status 403 if the token is invalid.
+// Returns status 200 if the user is authenticated.
 router.get("/authToken", (req, res) => {
   let authHeader = req.headers["authorization"];
   let token = authHeader && authHeader.split(" ")[1];
