@@ -24,6 +24,9 @@ class NavBar extends React.Component {
             <Nav.Link href="/search">Explore Top Tens</Nav.Link>
           </Nav>
           <Nav>
+            <Nav.Item style={{ color: "white", padding: "12px" }}>
+              {localStorage.getItem("name")}
+            </Nav.Item>
             <HiddenLink href="/create" render={!this.props.loggedIn}>
               <Button variant="primary">Create Account</Button>
             </HiddenLink>
