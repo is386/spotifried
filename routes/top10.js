@@ -1,5 +1,6 @@
 const express = require("express");
 const pg = require("pg");
+const jwt = require("jsonwebtoken");
 const spotifyApi = require("spotify-web-api-node");
 const spotify = new spotifyApi();
 
@@ -40,31 +41,59 @@ function parseSongs(songData) {
 
 // Updates current user data with current top ten songs
 // Returns true if successful, false otherwise
-function pushTopTen(songs) {
-  pool.query(updateSongsQuery, [songs, "placeholder_username"]).catch(function (error) {
+function pushTopTen(songs, username) {
+  pool.query(updateSongsQuery, [songs, username]).catch(function (error) {
     console.log(error);
     return false;
   });
   return true;
 }
 
-// Returns status 401 if the token is invalid.
-// Returns status 500 for any other error
+// Parses the username from the JWT token
+function parseUser(token) {
+  let name;
+  jwt.verify(token, env.access_token_secret, (err, username) => {
+    if (!err) {
+      name = username;
+    }
+  });
+  return name;
+}
+
+// Returns status 401 if the token is invalid or bad request body.
+// Returns status 500 for any other error.
 // Returns status 200 if all goes well.
 router.post("/top_10", function (req, res) {
-  if (!req.body.hasOwnProperty("token")) {
+  if (!req.body.hasOwnProperty("spotify_token") || !req.body.hasOwnProperty("auth_token")) {
     return res.status(401).send();
   }
-  let token = req.body.token;
-  spotify.setAccessToken(token);
+
+  let spotify_token = req.body.spotify_token;
+  let auth_token = req.body.auth_token;
+  let username = parseUser(auth_token);
+
+  if (!username) {
+    return res.status(401).send();
+  }
+
+  spotify.setAccessToken(spotify_token);
   spotify
     .getMyTopTracks({ limit: songLimit })
     .then((response) => {
       let songs = parseSongs(response.body.items);
-      pushTopTen(JSON.stringify(songs));
+      pushTopTen(JSON.stringify(songs), username);
       return res.status(200).send({ songs: songs });
     })
     .catch((error) => {
       return res.status(500).send();
     });
 });
+
+// pool
+// .query(selectSongsQuery, ["Indervir15"])
+// .then(function (response) {
+//   console.log(response.rows[0]);
+// })
+// .catch(function (error) {
+//   console.log(error);
+// });

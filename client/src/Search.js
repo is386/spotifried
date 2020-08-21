@@ -14,6 +14,15 @@ class Search extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  // This checks if the login token exists. This is so the navbar gets updated.
+  async componentDidMount() {
+    await auth.authenticate(localStorage.getItem("token"));
+    this.setState({ loggedIn: auth.authenticated });
+    if (!this.state.loggedIn) {
+      this.props.history.push("/search");
+    }
+  }
+
   handleInputChange(event) {
     //const target = event.target;
     this.setState({ search: event.target.value });
@@ -27,6 +36,7 @@ class Search extends React.Component {
       .then((response) => {
         if (response.status === 200) {
           response.json().then((data) => {
+            console.log(data.songs);
             this.setState({ songs: data.songs });
             this.setState({ error: "" });
           });
