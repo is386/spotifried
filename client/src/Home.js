@@ -21,36 +21,28 @@ class Create extends React.Component {
           <h1>Welcome to Spotifried!</h1>
           <p>This is a simple website that shows you your top ten songs on Spotify.</p>
           <Nav.Link href="/create">
-            <Button>Create Account</Button>
+            <Button variant="secondary">Create Account</Button>
           </Nav.Link>
           <Nav.Link
             target="_blank"
             rel="noopener noreferrer"
             href="https://github.com/is386/spotifried"
           >
-            <Button variant="secondary">GitHub Repository</Button>
+            <Button variant="primary">GitHub Repository</Button>
           </Nav.Link>
           <a href="/login">Already have an account? Click here to log in.</a>
         </Jumbotron>
 
         <CardDeck>
-          <Card bg="secondary" text="dark" className="mb-2">
-            <Card.Img
-              variant="top"
-              src="gray-spotify.png"
-              style={{ padding: "1em", width: "10em", margin: "auto" }}
-            />
+          <Card bg="secondary" text="dark">
+            <Card.Img variant="top" src="gray-spotify.png" />
             <Card.Body>
               <Card.Title>Music From Spotify</Card.Title>
               <Card.Text>All the music on this website is sourced from Spotify.</Card.Text>
             </Card.Body>
           </Card>
           <Card bg="secondary" text="dark" className="mb-2">
-            <Card.Img
-              variant="top"
-              src="gray-spotify.png"
-              style={{ padding: "1em", width: "10em", margin: "auto" }}
-            />
+            <Card.Img variant="top" src="gray-spotify.png" />
             <Card.Body>
               <Card.Title>Get Your Top Ten Tracks</Card.Title>
               <Card.Text>
@@ -59,11 +51,7 @@ class Create extends React.Component {
             </Card.Body>
           </Card>
           <Card bg="secondary" text="dark" className="mb-2">
-            <Card.Img
-              variant="top"
-              src="gray-spotify.png"
-              style={{ padding: "1em", width: "10em", margin: "auto" }}
-            />
+            <Card.Img variant="top" src="gray-spotify.png" />
             <Card.Body>
               <Card.Title>Explore Others' Tracks</Card.Title>
               <Card.Text>
