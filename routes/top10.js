@@ -71,6 +71,7 @@ router.post("/top_10", function (req, res) {
   let spotify_token = req.body.spotify_token;
   let auth_token = req.body.auth_token;
   let username = parseUser(auth_token);
+  let range = req.body.range;
 
   if (!username) {
     return res.status(401).send();
@@ -78,7 +79,7 @@ router.post("/top_10", function (req, res) {
 
   spotify.setAccessToken(spotify_token);
   spotify
-    .getMyTopTracks({ limit: songLimit })
+    .getMyTopTracks({ limit: songLimit, time_range: range })
     .then((response) => {
       let songs = parseSongs(response.body.items);
       pushTopTen(JSON.stringify(songs), username);

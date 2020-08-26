@@ -15,9 +15,11 @@ class Top10 extends React.Component {
       connected: params.access_token ? true : false,
       loggedIn: false,
       songs: [],
+      range: "long_term",
     };
 
     this.handleGetTopTen = this.handleGetTopTen.bind(this);
+    this.handleRangeChange = this.handleRangeChange.bind(this);
   }
 
   // This checks if the login token exists. If not, it redirects to the login.
@@ -49,7 +51,7 @@ class Top10 extends React.Component {
       this.setState({ error: "Spotify not connected." });
       return;
     }
-    let data = { spotify_token: this.state.token, auth_token: localStorage.getItem("token") };
+    let data = { spotify_token: this.state.token, auth_token: localStorage.getItem("token"), range: this.state.range };
     fetch("/top_10", {
       method: "POST",
       headers: {
@@ -74,6 +76,10 @@ class Top10 extends React.Component {
       });
   }
 
+  handleRangeChange(event) {
+    this.setState({ range: event.target.value });
+  }
+
   // This page should only be accessed by people who are logged in
   render() {
     let spotifyConnect = null;
@@ -89,6 +95,13 @@ class Top10 extends React.Component {
         <div id="error">{this.state.error}</div>
         <br />
         {spotifyConnect}
+        <br />
+        <label for="range">Choose a date range: </label>
+        <select name="range" onChange={this.handleRangeChange}>
+          <option value="long_term">last several years</option>
+          <option value="medium_term">last 6 months</option>
+          <option value="short_term">last 4 weeks</option>
+        </select>
         <br />
         <button id="send" onClick={this.handleGetTopTen}>
           Get Top 10 Tracks
