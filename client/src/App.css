@@ -1,6 +1,10 @@
 :root {
   --dark-gray: #343a40;
   --light-gray: #6c757d;
+  --dark-blue: #1e5aa5;
+  --dark-blue2: #003c87;
+  --light-blue: #42a9cf;
+  --light-blue2: #066d93;
 }
 
 .App {
@@ -17,6 +21,44 @@
   margin-top: 5%;
   width: 75vw;
   height: 15vw;
+}
+
+.card-img-top {
+  padding: 1em;
+  width: 10em;
+  margin: auto;
+}
+
+.card {
+  background-color: lightgray;
+}
+
+.btn-primary {
+  background-color: var(--light-blue);
+  border-color: var(--light-blue);
+}
+
+.btn-primary:hover {
+  background-color: var(--light-blue2);
+  border-color: var(--light-blue2);
+}
+
+.btn-secondary {
+  background-color: var(--dark-blue);
+  border-color: var(--dark-blue);
+}
+
+.btn-secondary:hover {
+  background-color: var(--dark-blue2);
+  border-color: var(--dark-blue2);
+}
+
+a {
+  color: var(--light-blue);
+}
+
+a:hover {
+  color: var(--light-blue2);
 }
 
 input {

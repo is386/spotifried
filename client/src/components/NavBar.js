@@ -9,9 +9,9 @@ class NavBar extends React.Component {
         <Navbar.Brand href="/">
           <img
             alt=""
-            src="favicon.ico"
-            width="30"
-            height="30"
+            src="spotifried.png"
+            width="35"
+            height="35"
             className="d-inline-block align-top"
           />{" "}
           Spotifried
@@ -29,13 +29,13 @@ class NavBar extends React.Component {
               {localStorage.getItem("name")}
             </Nav.Item>
             <HiddenLink href="/create" render={!this.props.loggedIn}>
-              <Button variant="primary">Create Account</Button>
+              <Button variant="secondary">Create Account</Button>
             </HiddenLink>
             <HiddenLink href="/login" render={!this.props.loggedIn}>
-              <Button variant="success">Login</Button>
+              <Button variant="primary">Login</Button>
             </HiddenLink>
             <HiddenLink href="/logout" render={this.props.loggedIn}>
-              <Button variant="danger">Logout</Button>
+              <Button variant="primary">Logout</Button>
             </HiddenLink>
           </Nav>
         </Navbar.Collapse>
