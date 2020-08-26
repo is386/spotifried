@@ -6,7 +6,7 @@ class NavBar extends React.Component {
   render() {
     return (
       <Navbar bg="dark" variant="dark">
-        <Navbar.Brand>
+        <Navbar.Brand href="/">
           <img
             alt=""
             src="favicon.ico"
@@ -18,10 +18,11 @@ class NavBar extends React.Component {
         </Navbar.Brand>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/search">Explore Top Tens</Nav.Link>
             <HiddenLink href="/top10" render={this.props.loggedIn}>
               Your Top Ten
             </HiddenLink>
-            <Nav.Link href="/search">Explore Top Tens</Nav.Link>
           </Nav>
           <Nav>
             <Nav.Item style={{ color: "white", padding: "12px" }}>
