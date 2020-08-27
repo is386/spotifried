@@ -77,6 +77,8 @@ router.get("/callback", function (req, res) {
       json: true,
     };
     request.post(authOptions, function (error, response, body) {
+      console.log(response);
+      console.log(body);
       if (!error && response.statusCode === 200) {
         res.redirect(
           "http://localhost:3000/top10#" +
@@ -86,6 +88,8 @@ router.get("/callback", function (req, res) {
             })
         );
       } else {
+        console.log(error);
+        res.send(error);
       }
     });
   }

@@ -2,6 +2,8 @@ import React from "react";
 import "./App.css";
 import auth from "./components/Auth";
 import NavBar from "./components/NavBar";
+import { FormControl, FormGroup, FormLabel, Form, Button } from "react-bootstrap";
+import ReactTooltip from "react-tooltip";
 
 class Create extends React.Component {
   constructor(props) {
@@ -62,38 +64,62 @@ class Create extends React.Component {
 
   render() {
     return (
-      <div>
+      <FormGroup style={{backgroundColor: "#343a40", height: "100vh", margin: "0 auto", position: "relative"}}>
         <NavBar loggedIn={auth.authenticated} />
-        <h1>Create Account</h1>
-        <p>
-          Usernames must be between 1 and 20 characters long. <br />
-          Passwords must be between 5 and 36 characters long.
-        </p>
+        
         {/* This div will contain whatever the error variable contains */}
         <div className="error-div">
           <p>{this.state.error}</p>
         </div>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Username:
+        <FormGroup style = {{ backgroundColor: "#6c757d", border: "solid", borderRadius: "15px", borderColor: "#42a9cf", position: "absolute",top: "25%", bottom: "25%", left: "15%", right: "15%", width: "60%", margin: "0 auto"}}>
+        
+        
+        <div style = {{width: "50%", height: "100%", float: "left"}}>
+          <div style = {{width: "50%",height: "60%", position: "absolute", top: "25%", bottom: "25%", display: "inlineBlock"}}>
+            <img
+                alt=""
+                src="favicon.ico"
+                className="d-inline-block align-top"
+                style = {{transform: "translate(-8%, -10%) rotate(175deg)", display: "block", top: "25%"}}
+                >
+            </img>{" "}
+            <h1>Spotifried</h1>
+          </div>
+          
+        </div>
+        <div style = {{width: "50%",height: "100%", display: "grid", float: "right",margin: "0 auto"}}>
+        <form onSubmit={this.handleSubmit} style = {{height: "100%", position: "relative"}}>
+          <h1>Create Account</h1>
+          
+          <FormLabel>
             {/* The value of the username field will change as its being typed into*/}
-            <input
+            <FormControl
               name="username"
               type="text"
               value={this.state.username}
+              placeholder = "Username"
               onChange={this.handleInputChange}
-            ></input>
-          </label>
+              data-tip data-for="usernameTip"
+            ></FormControl>
+            <ReactTooltip id="usernameTip" place="bottom" effect="solid">
+            Usernames must be between 1 and 20 characters long.
+            </ReactTooltip>
+          </FormLabel>
           <br />
-          <label>
-            Password:
+          <FormLabel>
             {/* The value of the input field will change as its being typed into*/}
-            <input name="password" type="password" onChange={this.handleInputChange}></input>
-          </label>
+            <FormControl name="password" type="password" placeholder = "Password" onChange={this.handleInputChange} data-tip data-for="passwordTip"></FormControl>
+            <ReactTooltip id="passwordTip" place="bottom" effect="solid">
+            Passwords must be between 5 and 36 characters long.
+            </ReactTooltip>
+          </FormLabel>
           <br />
-          <input type="submit" value="Submit"></input>
+          <Button type="submit" value="Submit" >Submit</Button>
+          
         </form>
-      </div>
+        </div>
+        </FormGroup>
+      </FormGroup>
     );
   }
 }
