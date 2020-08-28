@@ -36,7 +36,6 @@ class Search extends React.Component {
       .then((response) => {
         if (response.status === 200) {
           response.json().then((data) => {
-            console.log(data.songs);
             this.setState({ songs: data.songs });
             this.setState({ error: "" });
           });
