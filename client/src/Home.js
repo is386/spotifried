@@ -20,16 +20,16 @@ class Create extends React.Component {
         <Jumbotron bg="dark" text="dark" className="mb-2">
           <h1>Welcome to Spotifried!</h1>
           <p>This is a simple website that shows you your top ten songs on Spotify.</p>
-          <Nav.Link href="/create">
-            <Button variant="secondary">Create Account</Button>
-          </Nav.Link>
-          <Nav.Link
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://github.com/is386/spotifried"
-          >
-            <Button variant="primary">GitHub Repository</Button>
-          </Nav.Link>
+          <div className="btn-container">
+            <Button href="/create" target="_blank" rel="noopener noreferrer" variant="secondary">
+              Create Account
+            </Button>
+          </div>
+          <div className="btn-container">
+            <Button variant="primary" href="https://github.com/is386/spotifried">
+              GitHub Repository
+            </Button>
+          </div>
           <a href="/login">Already have an account? Click here to log in.</a>
         </Jumbotron>
 
@@ -42,7 +42,7 @@ class Create extends React.Component {
             </Card.Body>
           </Card>
           <Card bg="secondary" text="dark" className="mb-2">
-            <Card.Img variant="top" src="gray-spotify.png" />
+            <Card.Img variant="top" src="top10.png" />
             <Card.Body>
               <Card.Title>Get Your Top Ten Tracks</Card.Title>
               <Card.Text>
@@ -51,7 +51,7 @@ class Create extends React.Component {
             </Card.Body>
           </Card>
           <Card bg="secondary" text="dark" className="mb-2">
-            <Card.Img variant="top" src="gray-spotify.png" />
+            <Card.Img variant="top" src="explore.png" />
             <Card.Body>
               <Card.Title>Explore Others' Tracks</Card.Title>
               <Card.Text>
