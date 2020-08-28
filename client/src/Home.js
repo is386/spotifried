@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import auth from "./components/Auth";
 import NavBar from "./components/NavBar";
-import { Jumbotron, Button, Nav, Card, CardDeck } from "react-bootstrap";
+import { Jumbotron, Button, Card, CardDeck } from "react-bootstrap";
 
 class Create extends React.Component {
   async componentDidMount() {
