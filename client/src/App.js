@@ -5,6 +5,7 @@ import Login from "./Login";
 import Top10 from "./Top10";
 import Search from "./Search";
 import Logout from "./Logout";
+import Home from "./Home";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 class App extends React.Component {
@@ -13,8 +14,9 @@ class App extends React.Component {
       <Router>
         <div className="App">
           <Switch>
-            <Route path="/" exact component={Login} />
-            <Route path="/login" exact component={Login} />
+            <Route path="/" exact component={Home} />
+            <Route path="/home" component={Home} />
+            <Route path="/login" component={Login} />
             <Route path="/create" component={Create} />
             <Route path="/search" component={Search} />
             <Route path="/logout" component={Logout} />
