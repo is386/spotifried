@@ -12,7 +12,7 @@ There is no need to delete the `node_modules` folders,`.gitignore` will ignore t
 
 ## Setup Postgres Database
 
-Create a file named `env.json` in the `root` directory. Add the following code to the file and add your Postgres password. This file is ignored by `.gitignore` so no need to worry about accidentally pushing your password.
+Create a file named `env.json` in the `root` directory. Add the following code to the file and add your Postgres password. This file is ignored by `.gitignore` so no need to worry about accidentally pushing your password. The `access_token_secret` is used to generate a JWT key, and it can be any random string of characters. We reccomend using an encryption library to generate it. The `client_id` and `client_secret` are provided by Spotify when you make a new project on their developer website.
 
 ```json
 {
@@ -23,7 +23,7 @@ Create a file named `env.json` in the `root` directory. Add the following code t
   "client_id": "CLIENT_ID_HERE",
   "client_secret": "CLIENT_SECRET_HERE",
   "redirect_uri": "http://localhost:5000/callback",
-  "access_token_secret": "ACCESS_TOKEN_SECRET HERE", // created using Node's "crypto" library.
+  "access_token_secret": "ACCESS_TOKEN_SECRET HERE",
   "port": 5432
 }
 ```
@@ -37,7 +37,6 @@ CREATE TABLE users (
     username VARCHAR(20),
     hashed_password CHAR(60),
     top10 json,
-    top10_date DATE NOT NULL DEFAULT CURRENT_DATE
 );
 ```
 
@@ -46,3 +45,5 @@ CREATE TABLE users (
 Navigate to the `root` directory, then run the command `node server.js`.
 
 Then navigate to the `client` directory, then run the command `npm start`.
+
+Note: The server runs on port `5000` and the frontend runs on port `3000`.
