@@ -10,7 +10,7 @@ Run `npm install` in both the `root` and `client` directories.
 
 There is no need to delete the `node_modules` folders,`.gitignore` will ignore those folders.
 
-## Setup Postgres Database
+## Setup env.json
 
 Create a file named `env.json` in the `root` directory. Add the following code to the file and add your Postgres password. This file is ignored by `.gitignore` so no need to worry about accidentally pushing your password. The `access_token_secret` is used to generate a JWT key, and it can be any random string of characters. We reccomend using an encryption library to generate it. The `client_id` and `client_secret` are provided by Spotify when you make a new project on their developer website.
 
@@ -27,6 +27,8 @@ Create a file named `env.json` in the `root` directory. Add the following code t
   "port": 5432
 }
 ```
+
+## Setup Postgres Database
 
 Next, run `psql --username postgres` and execute the following SQL queries to create the `user_login` database and the `users` table:
 
