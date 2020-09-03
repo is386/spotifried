@@ -102,7 +102,7 @@ class Login extends React.Component {
                   Login
                 </Button>
                 <div className="error-div">
-                  <p>{this.state.error}</p>
+                  <div id="error" class="alert alert-warning error-msg">{this.state.error}</div>
                 </div>
                 <a href="/create">Don't have an account? Click here to create one.</a>
               </form>
