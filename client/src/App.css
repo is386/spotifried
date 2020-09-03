@@ -1,5 +1,7 @@
 :root {
   --dark-gray: #343a40;
+  --med-dark-gray: #42494F;
+  --medium-gray: #50585F;
   --light-gray: #6c757d;
   --dark-blue: #1e5aa5;
   --dark-blue2: #003c87;
@@ -108,6 +110,10 @@ input {
   margin: 2px;
 }
 
+p {
+  margin: 10px;
+}
+
 table {
   margin-left: auto;
   margin-right: auto;
@@ -119,8 +125,35 @@ th,
 td {
   border: 1px solid black;
   padding: 10px;
+  max-width: 20vw;
 }
 
 thead {
-  background-color: green;
+  background-color: var(--light-blue2);
+}
+
+.rowcolor1 {
+  background-color: var(--medium-gray);
+}
+
+.rowcolor2 {
+  background-color:var(--med-dark-gray);
+}
+
+.error-msg, .search {
+  padding: 8px 16px;
+  display: inline-block;
+  margin: 10px;
+}
+
+.error-msg:empty {
+  display: none;
+}
+
+.search {
+  width: 300px;
+}
+
+.top10 {
+  width: 250px !important;
 }

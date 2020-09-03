@@ -36,7 +36,7 @@ CREATE DATABASE user_login;
 CREATE TABLE users (
     username VARCHAR(20),
     hashed_password CHAR(60),
-    top10 json,
+    top10 json
 );
 ```
 
