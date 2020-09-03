@@ -1,5 +1,6 @@
 import React from "react";
 import "../App.css";
+import { Image } from "react-bootstrap";
 
 class SongTable extends React.Component {
   constructor(props) {
@@ -9,12 +10,30 @@ class SongTable extends React.Component {
 
   // Generates the table based on the list of song objects
   generateTable() {
+    let counter = 0;
     return this.props.songs.map((song) => {
       const { id, name, album, artists, art, song_url, album_url } = song;
-      return (
-        <tr key={id}>
+      counter += 1;
+      if (counter%2==0){
+        return (
+          <tr key={id} class="rowcolor1">
+            <td>
+              <Image src={art} alt="album art" width="100" height="100" rounded />
+            </td>
+            <td>
+              <a href={song_url}>{name}</a>
+            </td>
+            <td>
+              <a href={album_url}>{album}</a>
+            </td>
+            <td>{artists.join(", ")}</td>
+          </tr>
+        );
+      } else {
+        return (
+          <tr key={id} class="rowcolor2">
           <td>
-            <img src={art} alt="album art" width="100" height="100" />
+            <Image src={art} alt="album art" width="100" height="100" rounded />
           </td>
           <td>
             <a href={song_url}>{name}</a>
@@ -23,8 +42,9 @@ class SongTable extends React.Component {
             <a href={album_url}>{album}</a>
           </td>
           <td>{artists.join(", ")}</td>
-        </tr>
-      );
+          </tr>
+        );
+      }
     });
   }
 

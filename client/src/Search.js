@@ -3,6 +3,7 @@ import SongTable from "./components/SongTable";
 import "./App.css";
 import auth from "./components/Auth";
 import NavBar from "./components/NavBar";
+import { Alert, Button } from "react-bootstrap";
 
 class Search extends React.Component {
   constructor(props) {
@@ -59,19 +60,27 @@ class Search extends React.Component {
         <h1>Search</h1>
         <p>Type in a username to see their top ten songs.</p>
         <form onSubmit={this.handleSubmit}>
-          <input
-            name="search"
-            type="text"
-            placeholder="Search.."
-            value={this.state.search}
-            onChange={this.handleInputChange}
-          ></input>
-
-          <input type="submit" value="Submit"></input>
+          <div style={{display: "inline-block"}}>
+            <input
+              name="search"
+              type="text"
+              class="form-control search"
+              variant="primary"
+              placeholder="Enter username"
+              value={this.state.search}
+              onChange={this.handleInputChange}
+            ></input>
+          </div>
+          <br />
+          <div style={{display: "inline-block"}}>
+            <div class="alert alert-warning error-msg search" style={{margin: "0px"}}>{this.state.error}</div>
+          </div>
+          <br />
+          <div style={{margin: "10px"}}>
+            <Button type="submit" class="btn">Search</Button>
+          </div>
         </form>
-        <div>
-          <p>{this.state.error}</p>
-        </div>
+        
 
         <SongTable songs={this.state.songs}></SongTable>
       </div>

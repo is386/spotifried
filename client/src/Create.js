@@ -108,7 +108,7 @@ class Create extends React.Component {
                   Create
                 </Button>
                 <div className="error-div">
-                  <p>{this.state.error}</p>
+                <div class="alert alert-warning error-msg">{this.state.error}</div>
                 </div>
                 <a href="/login">Already have an account? Click here to log in.</a>
               </form>
