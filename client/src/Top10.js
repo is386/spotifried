@@ -2,7 +2,6 @@ import React from "react";
 import SongTable from "./components/SongTable";
 import auth from "./components/Auth";
 import NavBar from "./components/NavBar";
-import { Button } from "react-bootstrap";
 
 class Top10 extends React.Component {
   constructor(props) {
@@ -51,7 +50,11 @@ class Top10 extends React.Component {
       this.setState({ error: "Spotify not connected." });
       return;
     }
-    let data = { spotify_token: this.state.token, auth_token: localStorage.getItem("token"), range: this.state.range };
+    let data = {
+      spotify_token: this.state.token,
+      auth_token: localStorage.getItem("token"),
+      range: this.state.range,
+    };
     fetch("/top_10", {
       method: "POST",
       headers: {
@@ -84,7 +87,16 @@ class Top10 extends React.Component {
   render() {
     let spotifyConnect = null;
     if (!this.state.connected) {
-      spotifyConnect = <div><button class="btn btn-primary top10" style={{margin: "10px", display:"inline-block"}} href="http://localhost:5000/spotify_login">Connect to Spotify</button></div>;
+      spotifyConnect = (
+        <form action="http://localhost:5000/spotify_login">
+          <input
+            class="btn btn-primary top10"
+            style={{ margin: "10px", display: "inline-block" }}
+            type="submit"
+            value="Connect to Spotify"
+          />
+        </form>
+      );
     }
 
     return (
@@ -92,27 +104,50 @@ class Top10 extends React.Component {
         <NavBar loggedIn={auth.authenticated} />
 
         <div id="options">
-          <div style={{padding: "30px"}}>
+          <div style={{ padding: "30px" }}>
             <h1>Your Top 10</h1>
           </div>
           {spotifyConnect}
-          <div id="error" class="alert alert-warning error-msg top10" style={{margin: "0px"}}>{this.state.error}</div>
-          <div style={{margin: "20px"}}>
-          <div id="dateRange" class="justify-content-center" style={{"max-width":"50%", margin: "auto", display: "inline-block", padding: "10px"}}>
-          <label for="range">Choose a date range:  </label>
-          <select name="range" class="form-control top10" onChange={this.handleRangeChange}>
-            <option value="long_term">last several years</option>
-            <option value="medium_term">last 6 months</option>
-            <option value="short_term">last 4 weeks</option>
-          </select>
+          <div
+            id="error"
+            class="alert alert-warning error-msg top10"
+            style={{ margin: "0px" }}
+          >
+            {this.state.error}
           </div>
-          <div>
-            <button id="send" onClick={this.handleGetTopTen} class="btn btn-secondary top10" style={{margin: "0px"}}>
-              Get Top 10 Tracks
-            </button>
+          <div style={{ margin: "20px" }}>
+            <div
+              id="dateRange"
+              class="justify-content-center"
+              style={{
+                "max-width": "50%",
+                margin: "auto",
+                display: "inline-block",
+                padding: "10px",
+              }}
+            >
+              <label for="range">Choose a date range: </label>
+              <select
+                name="range"
+                class="form-control top10"
+                onChange={this.handleRangeChange}
+              >
+                <option value="long_term">last several years</option>
+                <option value="medium_term">last 6 months</option>
+                <option value="short_term">last 4 weeks</option>
+              </select>
+            </div>
+            <div>
+              <button
+                id="send"
+                onClick={this.handleGetTopTen}
+                class="btn btn-secondary top10"
+                style={{ margin: "0px" }}
+              >
+                Get Top 10 Tracks
+              </button>
+            </div>
           </div>
-          </div>
-
         </div>
         <SongTable songs={this.state.songs}></SongTable>
       </div>
