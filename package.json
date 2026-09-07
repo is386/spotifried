@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/is386/spotifried.git"
+    "url": "git+https://github.com/1nderr/spotifried.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/is386/spotifried/issues"
+    "url": "https://github.com/1nderr/spotifried/issues"
   },
-  "homepage": "https://github.com/is386/spotifried#readme",
+  "homepage": "https://github.com/1nderr/spotifried#readme",
   "dependencies": {
     "bcrypt": "^5.0.0",
     "express": "^4.17.1",

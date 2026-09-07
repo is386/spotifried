@@ -26,7 +26,7 @@ class Create extends React.Component {
             </Button>
           </div>
           <div className="btn-container">
-            <Button variant="primary" href="https://github.com/is386/spotifried">
+            <Button variant="primary" href="https://github.com/1nderr/spotifried">
               GitHub Repository
             </Button>
           </div>
